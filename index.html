@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Contact Form</title>
+<script>
+function validateForm() {
+var title = document.forms["contactForm"]["title"].value;
+var firstName = document.forms["contactForm"]["firstName"].value;
+var lastName = document.forms["contactForm"]["lastName"].value;
+var dob = document.forms["contactForm"]["dob"].value;
+var phone = document.forms["contactForm"]["phone"].value;
+var email = document.forms["contactForm"]["email"].value;
+
+// Check if required fields are filled
+if (title == "" || firstName == "" || lastName == "" || phone == "" || email == "") {
+alert("Please fill in all required fields.");
+return false;
+}
+
+// Validate email format
+var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+if (!emailPattern.test(email)) {
+alert("Please enter a valid email address.");
+return false;
+}
+
+// Validate phone number format
+var phonePattern = /^\d{10}$/;
+if (!phonePattern.test(phone)) {
+alert("Please enter a valid 10-digit phone number.");
+return false;
+}
+
+// Validation passed, submit form
+alert("Thank you " + title + " " + firstName + " " + lastName + "!\nYou have submitted the following details:\nDate of Birth: " + dob + "\nTelephone: " + phone + "\nFile Uploaded: " + document.getElementById("fileUpload").value + "\nMessage: " + document.forms["contactForm"]["message"].value);
+return true;
+}
+</script>
+</head>
+<body>
+<form name="contactForm" onsubmit="return validateForm()" enctype="multipart/form-data">
+<label for="title">Title:</label>
+<select id="title" name="title">
+<option value="">--Select--</option>
+<option value="Mr">Mr</option>
+<option value="Mrs">Mrs</option>
+<option value="Ms">Ms</option>
+</select><br>
+
+<label for="firstName">First Name:</label>
+<input type="text" id="firstName" name="firstName" required><br>
+
+<label for="lastName">Last Name:</label>
+<input type="text" id="lastName" name="lastName" required><br>
+
+<label for="dob">Date of Birth:</label>
+<input type="date" id="dob" name="dob"><br>
+
+<label for="phone">Telephone Number:</label>
+<input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required><br>
+
+<label for="fileUpload">File Upload (PDF or Image only):</label>
+<input type="file" id="fileUpload" name="fileUpload" accept=".pdf, .jpeg, .jpg, .png"><br>
+
+<label for="email">Email Address:</label>
+<input type="email" id="email" name="email" required><br>
+
+<label for="message">Message:</label>
+<textarea id="message" name="message" maxlength="300"></textarea><br>
+
+<input type="submit" value="Submit">
+</form>
+</body>
+</html>
